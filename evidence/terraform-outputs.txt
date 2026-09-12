@@ -1,0 +1,11 @@
+application_url = "http://ec2-13-233-179-48.ap-south-1.compute.amazonaws.com"
+instance_id = "i-0c4159e60c423d2d4"
+private_subnet_ids = [
+  "subnet-0f3d9d226a6254249",
+  "subnet-0969bbe1b7cf43602",
+]
+public_subnet_ids = [
+  "subnet-0afd9ba0d6e1228cb",
+  "subnet-03f449782b446c92a",
+]
+vpc_id = "vpc-09d1886b0870843c2"

@@ -1,0 +1,15 @@
+module.compute.data.aws_ami.amazon_linux
+module.compute.aws_instance.web
+module.network.aws_internet_gateway.this
+module.network.aws_route_table.private
+module.network.aws_route_table.public
+module.network.aws_route_table_association.private[0]
+module.network.aws_route_table_association.private[1]
+module.network.aws_route_table_association.public[0]
+module.network.aws_route_table_association.public[1]
+module.network.aws_subnet.private[0]
+module.network.aws_subnet.private[1]
+module.network.aws_subnet.public[0]
+module.network.aws_subnet.public[1]
+module.network.aws_vpc.this
+module.security.aws_security_group.web
