@@ -1,0 +1,15 @@
+8db9222 (HEAD -> main, origin/main) docs: add AWS infrastructure validation evidence
+a32bac4 docs: add architecture and troubleshooting documentation
+6429614 docs: add Terraform validation evidence
+f119092 build: lock dev environment provider versions
+d7c81ef refactor: use environment-specific Terraform root configuration
+a54b671 feat: build modular network security and compute infrastructure
+b0c70e9 chore: create modular Terraform project structure
+2516762 build: lock root Terraform provider version
+7cf8123 feat: configure S3 remote backend with state locking
+73aa4e5 feat: secure Terraform remote state bucket
+763fe2d build: lock Terraform provider versions
+5633239 feat: add Terraform remote state bootstrap
+8a458e2 feat: configure AWS provider and default tags
+0b40f72 build: define Terraform and AWS provider requirements
+cd374bb chore: initialize Terraform project repository
