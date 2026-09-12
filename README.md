@@ -77,6 +77,7 @@ Amazon S3
 terraform-aws-platform-foundation/
 ├── bootstrap/
 │   ├── main.tf
+│   ├── outputs.tf
 │   ├── providers.tf
 │   ├── versions.tf
 │   └── .terraform.lock.hcl
@@ -110,10 +111,14 @@ terraform-aws-platform-foundation/
 │
 ├── docs/
 │   ├── architecture.md
+│   ├── setup.md
 │   └── troubleshooting.md
 │
 ├── evidence/
+│   ├── application-validation.txt
+│   ├── aws-validation.txt
 │   ├── final-plan.txt
+│   ├── git-history.txt
 │   ├── terraform-outputs.txt
 │   └── terraform-state.txt
 │
