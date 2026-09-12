@@ -1,4 +1,10 @@
-8db9222 (HEAD -> main, origin/main) docs: add AWS infrastructure validation evidence
+c5eeb18 (HEAD -> main, origin/main) docs: update repository structure documentation
+f24f07a refactor: make Terraform backend reusable across AWS accounts
+4759a7d docs: complete Terraform troubleshooting guide
+7960f84 docs: add final Terraform AWS architecture diagram
+fddb314 docs: add setup state variables and security guide
+e0261df docs: add final deployment evidence
+8db9222 docs: add AWS infrastructure validation evidence
 a32bac4 docs: add architecture and troubleshooting documentation
 6429614 docs: add Terraform validation evidence
 f119092 build: lock dev environment provider versions
