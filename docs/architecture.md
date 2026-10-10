@@ -248,3 +248,9 @@ The focus is instead on:
 - Drift detection
 - Infrastructure validation
 - Controlled cleanup
+
+## Configuration Limitations
+
+- Network input validation checks for two distinct Availability Zones and valid subnet CIDR syntax. It does not explicitly reject overlapping subnet ranges or verify that every subnet is contained within the VPC CIDR. AWS may reject invalid combinations during deployment.
+- The compute module selects the most recent matching Amazon Linux 2023 AMI. A newer AMI may cause Terraform to propose EC2 replacement during a future plan. Review the plan before applying.
+- Private subnets are intentionally isolated without NAT Gateway access or VPC endpoints.
