@@ -1,0 +1,47 @@
+name: Terraform checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.16.1
+          terraform_wrapper: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install security scanner
+        run: python -m pip install -r requirements-checks.txt
+
+      - name: Startup script regression tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Formatting and backend-disabled validation
+        run: python scripts/validate_offline.py
+
+      - name: Security scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          for folder in bootstrap environments/dev; do
+            checkov -d "$folder" \
+              --framework terraform \
+              --download-external-modules false \
+              --skip-download --compact
+          done

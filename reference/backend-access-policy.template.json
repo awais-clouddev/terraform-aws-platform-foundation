@@ -1,0 +1,37 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListDevelopmentStatePrefix",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::<STATE_BUCKET_NAME>",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": [
+            "dev/*"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "ReadWriteDevelopmentState",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Resource": "arn:aws:s3:::<STATE_BUCKET_NAME>/dev/terraform.tfstate"
+    },
+    {
+      "Sid": "ManageDevelopmentLock",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": "arn:aws:s3:::<STATE_BUCKET_NAME>/dev/terraform.tfstate.tflock"
+    }
+  ]
+}

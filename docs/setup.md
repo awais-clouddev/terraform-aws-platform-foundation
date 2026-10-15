@@ -1,5 +1,19 @@
 # Setup and Usage
 
+> **Deployment status:** This portfolio deployment has been decommissioned. Evidence records the original implementation. Current configuration changes have been checked offline and have not been deployed to AWS.
+
+## Offline Review First
+
+For repository maintenance, run these commands from the repository root:
+
+    python3 -m unittest discover -s tests -v
+    python3 scripts/validate_offline.py
+
+The deployment commands below are for a future authorised deployment.
+Before using them, follow [backend recovery](state-recovery.md) and reconcile
+any manually deleted resources with state. Do not use deployment commands
+to perform an offline review.
+
 ## Prerequisites
 
 - Ubuntu / WSL

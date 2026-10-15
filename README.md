@@ -1,5 +1,7 @@
 # Terraform AWS Platform Foundation
 
+> **Deployment status:** This portfolio deployment has been decommissioned. Evidence records the original implementation. Current configuration changes have been checked offline and have not been deployed to AWS.
+
 A production-oriented, modular AWS infrastructure platform built with Terraform, demonstrating reusable Infrastructure as Code, remote state management, modular architecture, environment-specific configuration, drift detection, and automated infrastructure deployment.
 
 ## Architecture
@@ -363,7 +365,7 @@ evidence/terraform-state.txt
 evidence/final-plan.txt
 ```
 
-The final plan confirms:
+The historical final plan recorded, before subsequent resource removal:
 
 ```text
 No changes. Your infrastructure matches the configuration.
@@ -384,7 +386,7 @@ The remote-state bootstrap infrastructure is managed separately inside:
 bootstrap/
 ```
 
-This separation prevents accidental deletion of Terraform state while managing the application infrastructure.
+Separate bootstrap management reduces accidental coupling. Bucket deletion safeguards and their limits are described in the recovery guide.
 
 ## Project Goal
 
@@ -431,3 +433,60 @@ Drift Detection and Recovery
 - Git
 - Linux
 - AWS CLI
+
+## Current Verification and Operating Scope
+
+This is independent portfolio experience. Two-AZ networking with one EC2
+instance does not provide application high availability or automatic failover.
+The public HTTP endpoint serves a demonstration page; it is not intended
+for credentials or sensitive application data.
+
+Current configuration requires IMDSv2, explicitly encrypts the gp3 root
+volume, restricts the default security group, and limits workload outbound
+traffic to HTTP/HTTPS. Public IP assignment is explicit on the web instance
+rather than enabled automatically for every public-subnet instance.
+
+Startup stops on errors and checks Nginx configuration, service status and
+local HTTP access. Changes to user_data request instance replacement.
+The root volume is deleted with the instance; it is not a backup.
+
+The latest matching Amazon Linux AMI is discovered dynamically. Future plans
+can select a different AMI and must be reviewed for replacement.
+
+### Verification
+
+Run from the repository root:
+
+    python3 -m unittest discover -s tests -v
+    python3 scripts/validate_offline.py
+
+The validator uses a disposable copy and disables backend initialization.
+It checks formatting and provider schemas without planning or applying.
+
+Startup tests simulate commands; they do not establish successful EC2
+bootstrapping. Historical evidence is preserved in evidence/. A historical
+successful plan does not prove a current working deployment.
+
+The GitHub Actions workflow runs tests, validation and Checkov. Its first
+remote execution must pass before CI is considered verified.
+
+### Security Review
+
+Checkov 3.3.29 reported 31 passed checks, no failures and 12 resource-specific
+exceptions across bootstrap and development scans. Exceptions are documented
+beside their resources; skipped controls are not implemented controls.
+
+Accepted lab limits include public HTTP hosting, basic EC2 monitoring,
+instance-dependent EBS optimization, no VPC flow-log collection, no workload
+IAM role where no AWS API access is needed, and no state event notifications,
+access logging, cross-region replication or customer-managed KMS key.
+
+State versions are retained without automatic expiration. The security-group
+attachment finding is a scanner relationship limitation; the development
+configuration passes its dedicated group to the compute module.
+
+Live networking, effective IAM permissions, EC2 startup and recovery remain
+unverified for the revised configuration.
+
+See [backend access and recovery](docs/state-recovery.md). Reconcile actual
+inventory, backend configuration and state before any future live work.
